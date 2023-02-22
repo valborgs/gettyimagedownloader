@@ -52,7 +52,7 @@ def search(driver,query):
     driver.find_element_by_css_selector("#query").send_keys(query)
     driver.find_element_by_css_selector("#go").click()
 
-    time.sleep(5)
+    time.sleep(10)
 
     imagethumbs = driver.find_elements_by_css_selector(".imgThumb")
 
@@ -105,17 +105,8 @@ def imagedownload(driver,imagethumbs,index):
     print("#선택한 이미지 다운로드")
     driver.find_element_by_css_selector(".downloadBtnWrapIn a").click()
 
-    time.sleep(60)
+    time.sleep(10)
     print("#선택한 이미지 다운로드 완료")
-
-
-
-
-#헤드리스일때에도 다운로드 작업이 가능하도록 설정
-def enable_download_headless(driver):
-    driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
-    params = {'cmd':'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': os.getcwd()}}
-    driver.execute("send_command", params)
 
 
 
@@ -124,14 +115,14 @@ def enable_download_headless(driver):
 def set_options():
     #옵션
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    options.add_argument('--headless=new')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
 
     #헤드리스일때에도 다운로드 작업이 가능하도록 설정
     options.add_experimental_option('prefs', {
-        'download.default_directory': os.getcwd(),
+        'download.default_directory': os.getcwd()+"\\download",
         'download.prompt_for_download': False,
         'download.directory_upgrade': True,
         "safebrowsing_for_trusted_sources_enabled": False,
@@ -143,16 +134,12 @@ def set_options():
 
 
 #초기 실행 함수
-def init():
+def init(id,pw):
     #웹드라이버객체
     driver = webdriver.Chrome('chromedriver110.exe', options=set_options())
-    #헤드리스일때에도 다운로드 작업이 가능하도록 설정
-    enable_download_headless(driver)
+
     #driver = webdriver.Chrome('chromedriver.exe')
 
-    #로그인 정보
-    id = "아이디"
-    pw = "비번"
     try:
         login(driver,id,pw)
     except:
@@ -192,4 +179,7 @@ def init():
 
 
 if __name__ == "__main__":
-    init()
+    #로그인 정보
+    id = "아이디"
+    pw = "패스워드"
+    init(id,pw)
