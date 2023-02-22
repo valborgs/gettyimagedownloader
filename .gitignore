@@ -1,1 +1,5 @@
 temp/
+*.jpg
+*.png
+dowload/*.jpg
+dowload/*.png
