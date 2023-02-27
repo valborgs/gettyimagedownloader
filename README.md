@@ -30,3 +30,9 @@ headless옵션을 킨 경우에는 다운로드가 안된다
 이 쉬운 방법을 왜 못봤을까....  
 
 이제 gui를 만들고 gui에 맞춰 다운로드 과정도 좀더 다듬는 단계로 진행하자
+
+## 2023-02-27
+pyside와 qt designer를 이용해 gui 초안 만들기  
+
+![image](https://user-images.githubusercontent.com/45898059/221486558-696c3db8-68c6-4188-89f6-8a405ca71eae.png)  
+검색어 입력부분, 검색결과 이미지 불러와서 선택하는 부분, 이미지 다운로드 버튼 껍데기만 구현  
